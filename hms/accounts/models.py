@@ -8,6 +8,7 @@ class patient(models.Model):
     patient_number = models.CharField(max_length=20)
     patient_email = models.EmailField(max_length=20)
     patient_password = models.CharField(max_length=20)
+    patient_blood_group = models.CharField(max_length=20)
     def __str__(self):
         return self.patient_name
 class doctor(models.Model):
