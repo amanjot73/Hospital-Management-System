@@ -14,3 +14,7 @@ def user_dashboard(request):
     return render(request, 'appointment/dashboard.html', {
         'today_appointment': today_appointment
     })
+
+# ==
+def book_appointment(request):
+    return render(request,'appointment/book_appointment.html')

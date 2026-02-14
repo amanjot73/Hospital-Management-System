@@ -3,13 +3,29 @@
 <head>
     <title>HMS Dashboard</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body>
 
-    <div class="sidebar">
-        <h2>HMS</h2>
+      <div class="sidebar">
+        <div class="side-button active">
+            <i data-lucide="user"></i>
+            <p>My Profile</p>
+        </div>
+        <div class="side-button">
+            <i data-lucide="history"></i>
+            <p>Past Treaments</p>
+        </div>
+        <div class="side-button">
+            <i data-lucide="message-square"></i>
+            <p>Support</p>
+        </div>
+        <div class="side-button">
+            <i data-lucide="settings"></i>
+            <p>Settings</p>
+        </div>
     </div>
 
     <div class="main-content">
@@ -17,5 +33,8 @@
         {% endblock %}
     </div>
 
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>
