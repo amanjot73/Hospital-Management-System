@@ -27,7 +27,7 @@ class doctor(models.Model):
 class receptionist(models.Model):
     receptionist_name = models.CharField(max_length=20)
     receptionist_number = models.CharField(max_length=20)
-    receptionist_email = models.EmailField(unique=True)
+    receptionist_email = models.EmailField(max_length=20)
     receptionist_otp = models.CharField(max_length=10)
     receptionist_password = models.CharField(max_length=10)
     

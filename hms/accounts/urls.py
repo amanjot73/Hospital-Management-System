@@ -6,6 +6,9 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path('pre_patient/', views.pre_patient, name='pre_patient'),      # Remove 'accounts/'
+    path('pre_doctor/', views.pre_doctor, name='pre_doctor'),      # Remove 'accounts/'
+    path('pre_receptionist/', views.pre_receptionist, name='pre_receptionist'),      # Remove 'accounts/'
     path('login_patient/', views.patient_login, name='login_patient'),      # Remove 'accounts/'
     path('register_patient/', views.patient_register, name='register_patient'),  # Remove 'accounts/'
     path('patient_dashboard/', views.patient_dashboard, name='patient_dashboard'),  # Remove 'accounts/'

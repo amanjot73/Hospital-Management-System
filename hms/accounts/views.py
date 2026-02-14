@@ -1,11 +1,7 @@
-from django.shortcuts import render
-from .models import *
+from django.shortcuts import*
+from .models import*
 from django.conf import settings
 from django.core.mail import send_mail
-def view_profile(request):
-    patient_id = request.session.get('patient_id')    
-    patients = patient.objects.get(id=patient_id)
-    return render(request, 'accounts/view_profile_patient.html', {'patient': patients})
 def patient_login(request):
     if request.method == 'POST':
         patient_name = request.POST.get('patient_name')
@@ -17,11 +13,21 @@ def patient_login(request):
         ).first()
         if m:
             request.session['patient_id'] = m.id
-            return render(request,'accounts/patient_dashboard.html')
-        
-            
+            return redirect('pre_patient')
     return render(request, 'accounts/login_patient.html')
+def view_profile(request):
+    patient_id = request.session.get('patient_id')    
+    patients = patient.objects.get(id=patient_id)
+    return render(request, 'accounts/view_profile_patient.html', {'patient': patients})
+def pre_patient(request):
+    patient_id = request.session.get('patient_id')
+    # print(patient_id)
+    objs = patient.objects.get(id=patient_id)
 
+    return render(request,'accounts/pre_patient.html',
+                  {
+                      'patient':objs
+                  })
 def patient_register(request):
     if request.method == 'POST':
         patient_name = request.POST.get('patient_name')
@@ -61,8 +67,10 @@ def patient_dashboard(request):
     return render(request,'accounts/patient_dashboard.html')
 
 
-
-
+def pre_doctor(request):
+    doctor_id = request.session.get('doctor_id')
+    d = doctor.objects.get(id= doctor_id)
+    return render(request,'accounts/pre_doctor.html',{'d':d})
 
 def doctor_login(request):
     if request.method == 'POST':
@@ -72,9 +80,10 @@ def doctor_login(request):
             doctor_name = doctor_name,
             doctor_password = doctor_password
 
-        )
-        if m.exists():
-            return render(request,'accounts/temp.html')
+        ).first()
+        if m:
+            request.session['doctor_id'] = m.id
+            return redirect('pre_doctor')
         
             
     return render(request, 'accounts/login_doctor.html')
@@ -82,14 +91,18 @@ def doctor_login(request):
 def doctor_register(request):
     if request.method == 'POST':
         doctor_name = request.POST.get('doctor_name')
-        doctor_age = request.POST.get('doctor_age')
+        doctor_speciality = request.POST.get('doctor_speciality')
+        doctor_fee = request.POST.get('doctor_fee')
+        doctor_slots = request.POST.get('doctor_slots')
         doctor_number = request.POST.get('doctor_number')
         doctor_email = request.POST.get('doctor_email')
         doctor_password = request.POST.get('doctor_password')
 
         doctor.objects.create(
             doctor_name=doctor_name,
-            doctor_age=doctor_age,
+            doctor_fee=doctor_fee,
+            doctor_slots=doctor_slots,
+            doctor_speciality=doctor_speciality,
             doctor_number=doctor_number,
             doctor_email=doctor_email,
             doctor_password=doctor_password
@@ -102,9 +115,15 @@ def doctor_register(request):
             recipient_list=[doctor_email],
             fail_silently=False
         )
-        return render(request,'accounts/temp.html')
+        return render(request,'accounts/login_doctor.html')
 
     return render(request, 'accounts/register_doctor.html')
+
+def pre_receptionist(request):
+    receptionist_id = request.session.get('receptionist_id')
+    r = receptionist.objects.get(id = receptionist_id)
+    return render(request,'accounts/pre_receptionist.html',{'r':r})
+
 def receptionist_login(request):
     if request.method == 'POST':
         receptionist_name = request.POST.get('receptionist_name')
@@ -113,9 +132,10 @@ def receptionist_login(request):
             receptionist_name = receptionist_name,
             receptionist_password = receptionist_password
 
-        )
-        if m.exists():
-            return render(request,'accounts/temp.html')
+        ).first()
+        if m:
+            request.session['receptionist_id'] = m.id
+            return redirect('pre_receptionist')
         
             
     return render(request, 'accounts/login_receptionist.html')
@@ -123,7 +143,6 @@ def receptionist_login(request):
 def receptionist_register(request):
     if request.method == 'POST':
         receptionist_name = request.POST.get('receptionist_name')
-        # receptionist_otp = request.POST.get('receptionist')
         receptionist_number = request.POST.get('receptionist_number')
         receptionist_email = request.POST.get('receptionist_email')
         receptionist_password = request.POST.get('receptionist_password')
@@ -143,9 +162,10 @@ def receptionist_register(request):
             recipient_list=[receptionist_email],
             fail_silently=False
         )
-        return render(request,'accounts/temp.html')
+        return redirect('pre_receptionist')
 
     return render(request, 'accounts/register_receptionist.html')
 
 def temp(request):
     return render(request,'accounts/temp.html')
+
