@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="main-wrapper">
+
+    <div class="dashboard-header">
+        <h2 class="dashboard-title">Receptionist Dashboard</h2>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3>120</h3>
+            <p>Total Patients</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>15</h3>
+            <p>Today's Appointments</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>8</h3>
+            <p>Available Doctors</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>5</h3>
+            <p>Pending Bills</p>
+        </div>
+    </div>
+
+    <!-- Appointment Table -->
+    <div class="table-section">
+        <h3>Today's Appointments</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Patient</th>
+                    <th>Doctor</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>John Doe</td>
+                    <td>Dr. Smith</td>
+                    <td>10:30 AM</td>
+                    <td>Confirmed</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+{% endblock %}
