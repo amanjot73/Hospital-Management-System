@@ -9,6 +9,7 @@ class patient(models.Model):
     patient_email = models.EmailField(max_length=20)
     patient_password = models.CharField(max_length=20)
     patient_blood_group = models.CharField(max_length=20)
+    patient_gender = models.CharField(max_length=10)
     def __str__(self):
         return self.patient_name
 class doctor(models.Model):
@@ -21,6 +22,15 @@ class doctor(models.Model):
     doctor_email = models.EmailField(max_length=20)
     doctor_password = models.CharField(max_length=20)
     def __str__(self):
-        return self.patient_name
+        return self.doctor_name
 
+class receptionist(models.Model):
+    receptionist_name = models.CharField(max_length=20)
+    receptionist_number = models.CharField(max_length=20)
+    receptionist_email = models.EmailField(unique=True)
+    receptionist_otp = models.CharField(max_length=10)
+    receptionist_password = models.CharField(max_length=10)
+    
+    def __str__(self):
+        return self.receptionist_name
 

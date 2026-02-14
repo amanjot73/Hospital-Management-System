@@ -41,7 +41,7 @@
         background-color: #9eebc2;
     }
     .login-box:hover{
-        background-color: rgb(125, 228, 84);
+        background-color: rgb(109, 126, 135);
         cursor: pointer;
     }
 
@@ -93,18 +93,18 @@
     <!-- Right Login Section -->
     <div class="right">
         <div class="login-box">
-            <h2>Doctor Login</h2>
-            <form method="post" action="{% url 'login_patient' %}" >
+            <h2>Receptionist Login</h2>
+            <form method="post" action="{% url 'login_receptionist' %}" >
                 {% csrf_token %}
-                <input type="text"  name = "doctor_name" placeholder="Username" required>
-                <input type="password" name = "doctor_password" placeholder="Password" required>
+                <input type="text"  name = "receptionist_name" placeholder="Username" required>
+                <input type="password" name = "receptionist_password" placeholder="Password" required>
                 <button type="submit">Login</button><br>
                 <center>
 
                     <h5 style="padding-top: 1%; padding-bottom: 1%;">OR</h3>
                 </center>
-                <button type="submit" >
-                    <a href="{% url 'register_doctor' %}">
+                <button type="submit">
+                    <a href="{% url 'register_receptionist' %}">
                         Register
                     </a>
                 </button>

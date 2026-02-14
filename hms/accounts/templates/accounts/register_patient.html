@@ -42,7 +42,8 @@
         background-color: #9eebc2;
     }
     .login-box:hover{
-        background-color: rgb(125, 228, 84);
+        background-color: rgb(190, 194, 202);
+        cursor: pointer;
     }
 
     .login-box {
@@ -98,16 +99,28 @@
                 {% csrf_token %}
                 <input type="text"  name = "patient_name" placeholder="Name" required>
                 <input type="text"  name = "patient_age" placeholder="Age" required>
-                <input type="text" name = "patient_blood_group" placeholder="Blood Group" required>
+                <select name="patient_blood_group" required style="width:100%; padding:12px; margin-bottom:20px; border:1px solid #4ceb61; border-radius:5px;">
+                    <option value="">Select Blood Group</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                </select>
+                <select name="patient_gender" required style="width:100%; padding:12px; margin-bottom:20px; border:1px solid #4ceb61; border-radius:5px;">
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+
+                </select>
+
                 <input type="text"  name = "patient_number" placeholder="Number" required>
                 <input type="email"  name = "patient_email" placeholder="Email" required>
                 <input type="password" name = "patient_password" placeholder="Password" required>
-                <button type="submit">Login</button><br>
-                <center>
-
-                    <h5 style="padding-top: 1%; padding-bottom: 1%;">Or</h5>
-                </center>
-                <button type="submit">Register</button>
+                <button type="submit">Register</button><br>
             </form>
         </div>
     </div>

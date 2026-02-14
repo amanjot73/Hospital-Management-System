@@ -2,7 +2,10 @@ from django.shortcuts import render
 from .models import *
 from django.conf import settings
 from django.core.mail import send_mail
-
+def view_profile(request):
+    patient_id = request.session.get('patient_id')    
+    patients = patient.objects.get(id=patient_id)
+    return render(request, 'accounts/view_profile_patient.html', {'patient': patients})
 def patient_login(request):
     if request.method == 'POST':
         patient_name = request.POST.get('patient_name')
@@ -11,9 +14,10 @@ def patient_login(request):
             patient_name = patient_name,
             patient_password = patient_password
 
-        )
-        if m.exists():
-            return render(request,'accounts/temp.html')
+        ).first()
+        if m:
+            request.session['patient_id'] = m.id
+            return render(request,'accounts/patient_dashboard.html')
         
             
     return render(request, 'accounts/login_patient.html')
@@ -25,13 +29,17 @@ def patient_register(request):
         patient_number = request.POST.get('patient_number')
         patient_email = request.POST.get('patient_email')
         patient_password = request.POST.get('patient_password')
+        patient_blood_group = request.POST.get('patient_blood_group')
+        patient_gender = request.POST.get('patient_gender')
 
         patient.objects.create(
             patient_name=patient_name,
             patient_age=patient_age,
             patient_number=patient_number,
             patient_email=patient_email,
-            patient_password=patient_password
+            patient_password=patient_password,
+            patient_blood_group = patient_blood_group,
+            patient_gender = patient_gender
         )
 
         send_mail(
@@ -41,9 +49,21 @@ def patient_register(request):
             recipient_list=[patient_email],
             fail_silently=False
         )
-        return render(request,'accounts/temp.html')
+        return render(request,'accounts/login_patient.html')
+
+
+
+
 
     return render(request, 'accounts/register_patient.html')
+
+def patient_dashboard(request):
+    return render(request,'accounts/patient_dashboard.html')
+
+
+
+
+
 def doctor_login(request):
     if request.method == 'POST':
         doctor_name = request.POST.get('doctor_name')
@@ -85,6 +105,47 @@ def doctor_register(request):
         return render(request,'accounts/temp.html')
 
     return render(request, 'accounts/register_doctor.html')
+def receptionist_login(request):
+    if request.method == 'POST':
+        receptionist_name = request.POST.get('receptionist_name')
+        receptionist_password = request.POST.get('receptionist_password')
+        m = receptionist.objects.filter(
+            receptionist_name = receptionist_name,
+            receptionist_password = receptionist_password
+
+        )
+        if m.exists():
+            return render(request,'accounts/temp.html')
+        
+            
+    return render(request, 'accounts/login_receptionist.html')
+
+def receptionist_register(request):
+    if request.method == 'POST':
+        receptionist_name = request.POST.get('receptionist_name')
+        # receptionist_otp = request.POST.get('receptionist')
+        receptionist_number = request.POST.get('receptionist_number')
+        receptionist_email = request.POST.get('receptionist_email')
+        receptionist_password = request.POST.get('receptionist_password')
+
+        receptionist.objects.create(
+            receptionist_name=receptionist_name,
+            # receptionist_otp=receptionist_otp,
+            receptionist_number=receptionist_number,
+            receptionist_email=receptionist_email,
+            receptionist_password=receptionist_password
+        )
+
+        send_mail(
+            subject="Welcome to Hospital Management System",
+            message=f'Hello {receptionist_name}, Thanks for registering with us',
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[receptionist_email],
+            fail_silently=False
+        )
+        return render(request,'accounts/temp.html')
+
+    return render(request, 'accounts/register_receptionist.html')
 
 def temp(request):
     return render(request,'accounts/temp.html')
