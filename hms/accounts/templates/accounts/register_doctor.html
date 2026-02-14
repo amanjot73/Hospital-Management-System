@@ -98,7 +98,10 @@
             <form method="post" action=" {% url 'register_doctor' %} ">
                 {% csrf_token %}
                 <input type="text"  name = "doctor_name" placeholder="Name" required>
-                <input type="text"  name = "doctor_age" placeholder="Age" required>
+                <input type="text"  name = "doctor_speciality" placeholder="Speciality" required>
+                <input type="text"  name = "doctor_fee" placeholder="Fee" required>
+                <input type="text"  name = "doctor_slots" placeholder="Slots" required>
+                <!-- <input type="text"  name = "doctor_slots" placeholder="Slots" required> -->
                 <input type="text"  name = "doctor_number" placeholder="Number" required>
                 <input type="email"  name = "doctor_email" placeholder="Email" required>
                 <input type="password" name = "doctor_password" placeholder="Password" required>
