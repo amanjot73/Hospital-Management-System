@@ -1,7 +1,6 @@
 from django.db import models
 
 # Create your models here.
-<<<<<<< HEAD
 class patient(models.Model):
     patient_name = models.CharField(max_length=20)
     patient_age = models.CharField(max_length=5)
@@ -11,6 +10,9 @@ class patient(models.Model):
     patient_password = models.CharField(max_length=20)
     patient_blood_group = models.CharField(max_length=20)
     patient_gender = models.CharField(max_length=10)
+    patient_weight = models.IntegerField()
+    patient_height = models.IntegerField()
+    patient_image = models.ImageField(upload_to='patients/')
     def __str__(self):
         return self.patient_name
 class doctor(models.Model):
@@ -35,5 +37,14 @@ class receptionist(models.Model):
     def __str__(self):
         return self.receptionist_name
 
-=======
->>>>>>> bc332647ca32a1334991bf0e1e0103ca0f1e0e2a
+class appointments(models.Model):
+    patient_name  = models.CharField(max_length=20)
+    patient_age = models.IntegerField()
+    patient_email = models.EmailField()
+    patient_number = models.CharField(max_length=20)
+    appointment_data = models.DateField()
+    appointment_time = models.TimeField()
+    doctor = models.CharField(max_length=20)
+    reason = models.TextField()
+    def __str__(self):
+        return self.patient_name

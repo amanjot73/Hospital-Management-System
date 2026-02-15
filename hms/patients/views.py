@@ -1,3 +1,84 @@
-from django.shortcuts import render
+from django.shortcuts import*
+from accounts.models import*
+from django.conf import settings
+from django.core.mail import send_mail
+def patient_login(request):
+    if request.method == 'POST':
+        patient_name = request.POST.get('patient_name')
+        patient_password = request.POST.get('patient_password')
+        m = patient.objects.filter(
+            patient_name = patient_name,
+            patient_password = patient_password
 
-# Create your views here.
+        ).first()
+        if m:
+            request.session['patient_id'] = m.id
+            return redirect('pre_patient')
+    return render(request, 'patients/login_patient.html')
+def view_profile(request):
+    patient_id = request.session.get('patient_id')    
+    patients = patient.objects.get(id=patient_id)
+    return render(request, 'patients/view_profile_patient.html', {'patient': patients})
+def pre_patient(request):
+    patient_id = request.session.get('patient_id')
+    # print(patient_id)
+    objs = patient.objects.get(id=patient_id)
+
+    return render(request,'patients/pre_patient.html',
+                  {
+                      'patient':objs
+                  })
+def patient_register(request):
+    if request.method == 'POST':
+        patient_name = request.POST.get('patient_name')
+        patient_age = request.POST.get('patient_age')
+        patient_number = request.POST.get('patient_number')
+        patient_email = request.POST.get('patient_email')
+        patient_password = request.POST.get('patient_password')
+        patient_blood_group = request.POST.get('patient_blood_group')
+        patient_gender = request.POST.get('patient_gender')
+        patient_height = request.POST.get('patient_height')
+        patient_weight = request.POST.get('patient_weight')
+        patient_image = request.FILES.get('patient_image')
+
+        patient.objects.create(
+            patient_name=patient_name,
+            patient_age=patient_age,
+            patient_number=patient_number,
+            patient_email=patient_email,
+            patient_password=patient_password,
+            patient_blood_group = patient_blood_group,
+            patient_gender = patient_gender,
+            patient_weight = patient_weight,
+            patient_height = patient_height,
+            patient_image = patient_image
+        )
+
+        send_mail(
+            subject="Welcome to Hospital Management System",
+            message=f'Hello {patient_name}, Thanks for registering with us',
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[patient_email],
+            fail_silently=False
+        )
+        return render(request,'patients/login_patient.html')
+
+
+
+
+
+    return render(request, 'patients/register_patient.html')
+
+def patient_dashboard(request):
+    return render(request,'patients/patient_dashboard.html')
+def base_patient(request):
+    patient_id = request.session.get('patient_id')
+    if not patient_id:
+        return redirect('login_patient')
+    m = patient.objects.get(id = patient_id)
+    appointment_count = appointments.objects.filter(
+        patient_name=m.patient_name
+    ).count()
+    return render(request,'patients/base_patient.html',{
+        'm':m,
+        'count':appointment_count})

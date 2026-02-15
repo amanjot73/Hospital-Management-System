@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from django.shortcuts import*
 from .models import*
 from django.conf import settings
@@ -38,6 +37,9 @@ def patient_register(request):
         patient_password = request.POST.get('patient_password')
         patient_blood_group = request.POST.get('patient_blood_group')
         patient_gender = request.POST.get('patient_gender')
+        patient_height = request.POST.get('patient_height')
+        patient_weight = request.POST.get('patient_weight')
+        patient_image = request.FILES.get('patient_image')
 
         patient.objects.create(
             patient_name=patient_name,
@@ -46,7 +48,10 @@ def patient_register(request):
             patient_email=patient_email,
             patient_password=patient_password,
             patient_blood_group = patient_blood_group,
-            patient_gender = patient_gender
+            patient_gender = patient_gender,
+            patient_weight = patient_weight,
+            patient_height = patient_height,
+            patient_image = patient_image
         )
 
         send_mail(
@@ -169,9 +174,19 @@ def receptionist_register(request):
 
 def temp(request):
     return render(request,'accounts/temp.html')
+def base_patient(request):
+    patient_id = request.session.get('patient_id')
+    if not patient_id:
+        return redirect('login_patient')
+    m = patient.objects.get(id = patient_id)
+    appointment_count = appointments.objects.filter(
+        patient_name=m.patient_name
+    ).count()
+    return render(request,'accounts/base_patient.html',{
+        'm':m,
+        'count':appointment_count})
 
-=======
-from django.shortcuts import render
 
-# Create your views here.
->>>>>>> bc332647ca32a1334991bf0e1e0103ca0f1e0e2a
+
+        
+        

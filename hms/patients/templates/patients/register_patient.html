@@ -95,7 +95,7 @@
     <div class="right">
         <div class="login-box">
             <h2>Patient Register</h2>
-            <form method="post" action=" {% url 'register_patient' %} ">
+            <form method="post" action=" {% url 'register_patient' %} " enctype="multipart/form-data">
                 {% csrf_token %}
                 <input type="text"  name = "patient_name" placeholder="Name" required>
                 <input type="text"  name = "patient_age" placeholder="Age" required>
@@ -117,6 +117,9 @@
 
                 </select>
 
+                <input type="file" name = "patient_image" placeholder="Image" required accept="image/*">
+                <input type="text"  name = "patient_height" placeholder="Height in centimeters" required>
+                <input type="text"  name = "patient_weight" placeholder="Weight in Kgs" required>
                 <input type="text"  name = "patient_number" placeholder="Number" required>
                 <input type="email"  name = "patient_email" placeholder="Email" required>
                 <input type="password" name = "patient_password" placeholder="Password" required>
