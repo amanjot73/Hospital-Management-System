@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from django.shortcuts import*
 from .models import*
 from django.conf import settings
@@ -169,3 +170,8 @@ def receptionist_register(request):
 def temp(request):
     return render(request,'accounts/temp.html')
 
+=======
+from django.shortcuts import render
+
+# Create your views here.
+>>>>>>> bc332647ca32a1334991bf0e1e0103ca0f1e0e2a

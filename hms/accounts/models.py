@@ -1,6 +1,7 @@
 from django.db import models
 
 # Create your models here.
+<<<<<<< HEAD
 class patient(models.Model):
     patient_name = models.CharField(max_length=20)
     patient_age = models.CharField(max_length=5)
@@ -34,3 +35,5 @@ class receptionist(models.Model):
     def __str__(self):
         return self.receptionist_name
 
+=======
+>>>>>>> bc332647ca32a1334991bf0e1e0103ca0f1e0e2a
