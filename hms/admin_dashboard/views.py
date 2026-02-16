@@ -9,22 +9,41 @@ from .models import (
 
 
 def home(request):
-    """Dashboard home with quick counts and recent appointments."""
+    from django.db.models import Sum
+    
+    patients_count = Patient.objects.count()
+    doctors_count = Doctor.objects.count()
+    appts_count = Appointment.objects.count()
+    departments_count = Department.objects.count()
+    staff_count = StaffMember.objects.count()
+    inventory_count = InventoryItem.objects.count()
+    reports_count = Report.objects.count()
+    
+    # Calculate billing totals
+    total_billing = BillingRecord.objects.aggregate(Sum('amount'))['amount__sum'] or 0
+    
+    # Get recent appointments with status
+    recent_appts = Appointment.objects.select_related('patient', 'doctor').order_by('-when')[:6]
+    
+    # Get top medicines by quantity
+    top_medicines = InventoryItem.objects.order_by('-qty')[:5]
+    
     ctx = {
-        'patients': Patient.objects.count(),
-        'doctors': Doctor.objects.count(),
-        'appts': Appointment.objects.count(),
-        'departments': Department.objects.count(),
-        'staff': StaffMember.objects.count(),
+        'patients': patients_count,
+        'doctors': doctors_count,
+        'appts': appts_count,
+        'departments': departments_count,
+        'staff': staff_count,
         'bills': BillingRecord.objects.count(),
-        'inv': InventoryItem.objects.count(),
-        'reports': Report.objects.count(),
-        'recent_appts': Appointment.objects.select_related('patient', 'doctor').order_by('-when')[:6],
+        'inv': inventory_count,
+        'reports': reports_count,
+        'total_billing': total_billing,
+        'recent_appts': recent_appts,
+        'top_medicines': top_medicines,
     }
     return render(request, 'admin_dashboard/home.html', ctx)
 
 
-# ---- Patients (short name: pt) ----
 class PtList(ListView):
     model = Patient
     template_name = 'admin_dashboard/list.html'
@@ -61,8 +80,6 @@ class PtDelete(DeleteView):
     template_name = 'admin_dashboard/confirm_delete.html'
     success_url = reverse_lazy('admin_dashboard:pt')
 
-
-# ---- Doctors (short name: dr) ----
 class DrList(ListView):
     model = Doctor
     template_name = 'admin_dashboard/list.html'
@@ -99,8 +116,6 @@ class DrDelete(DeleteView):
     template_name = 'admin_dashboard/confirm_delete.html'
     success_url = reverse_lazy('admin_dashboard:dr')
 
-
-# ---- Appointments (short name: ap) ----
 class ApptList(ListView):
     model = Appointment
     template_name = 'admin_dashboard/list.html'
@@ -137,8 +152,6 @@ class ApptDelete(DeleteView):
     template_name = 'admin_dashboard/confirm_delete.html'
     success_url = reverse_lazy('admin_dashboard:ap')
 
-
-# ---- Simple lists for other sections (short names: dep, st, bill, inv, rep) ----
 class DepList(ListView):
     model = Department
     template_name = 'admin_dashboard/list.html'

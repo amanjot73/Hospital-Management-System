@@ -1,71 +1,268 @@
 {% extends 'admin_dashboard/base.html' %}
 {% block title %}Dashboard — HMS{% endblock %}
 {% block content %}
-<div class="dashboard">
-  <div class="cards">
-    <a class="stat" href="{% url 'admin_dashboard:pt' %}">
-      <div class="num">{{ patients }}</div>
-      <div class="label">Patients</div>
-    </a>
 
-    <a class="stat" href="{% url 'admin_dashboard:dr' %}">
-      <div class="num">{{ doctors }}</div>
-      <div class="label">Doctors</div>
-    </a>
+<style>
+ *{
+    box-sizing: border-box;
+ }
+  .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+  }
+  .dashboard-header h1 {
+      margin: 0;
+      color: #333;
+  }
+  .btn-add-patient {
+      background-color: #1e3c72;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: 0.3s;
+  }
+  .btn-add-patient:hover {
+      background-color: #2a5298;
+  }
+  .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+  }
+  .stat-card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+  }
+  .stat-label {
+      font-size: 14px;
+      color: #666;
+  }
+  .stat-number {
+      font-size: 28px;
+      font-weight: bold;
+      color: #333;
+  }
+  .stat-trend {
+      font-size: 12px;
+      color: #1e3c72;
+      font-weight: bold;
+  }
+  .section-title {
+      margin: 40px 0 20px 0;
+      color: #333;
+      border-bottom: 2px solid #1e3c72;
+      display: inline-block;
+      padding-bottom: 5px;
+  }
+  .content-wrapper {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+  }
+  .table-card {
+      flex: 1;
+      min-width: 300px;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      overflow-x: auto;
+  }
+  .table-card table {
+      width: 100%;
+      border-collapse: collapse;
+  }
+  .table-card th, .table-card td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+  }
+  .table-card th {
+      background-color: #f0f0f0;
+      font-weight: bold;
+  }
+  .badge {
+      padding: 5px 10px;
+      border-radius: 5px;
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+  }
+  .badge-completed {
+      background-color: #28a745;
+  }
+  .badge-scheduled {
+      background-color: #ffc107;
+  }
+  .badge-canceled {
+      background-color: #dc3545;
+  }
+  .chart-card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  .chart-card h3 {
+      margin-top: 0;
+      color: #333;
+  }
+  .staff-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+  }
+  .medicine-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+  }
+  .medicine-item:last-child {
+      border-bottom: none;
+  }
+  .badge {
+      padding: 5px 10px;
+      border-radius: 5px;
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+  }
+  .badge-completed {
+      background-color: #28a745;
+  }
+  .badge-scheduled {
+      background-color: #ffc107;
+  }
+  .badge-canceled {
+      background-color: #dc3545;
+  }
+  
+</style>
 
-    <a class="stat" href="{% url 'admin_dashboard:ap' %}">
-      <div class="num">{{ appts }}</div>
-      <div class="label">Appointments</div>
-    </a>
+<div class="dashboard-header">
+  <h1>Hospital Management System</h1>
+  <a href="{% url 'admin_dashboard:pt_add' %}" class="btn-add-patient">+ Add Patient</a>
+</div>
 
-    <a class="stat" href="{% url 'admin_dashboard:dep' %}">
-      <div class="num">{{ departments }}</div>
-      <div class="label">Departments</div>
-    </a>
-
-    <a class="stat" href="{% url 'admin_dashboard:st' %}">
-      <div class="num">{{ staff }}</div>
-      <div class="label">Staff</div>
-    </a>
-
-    <a class="stat" href="{% url 'admin_dashboard:bill' %}">
-      <div class="num">{{ bills }}</div>
-      <div class="label">Billing</div>
-    </a>
-
-    <a class="stat" href="{% url 'admin_dashboard:inv' %}">
-      <div class="num">{{ inv }}</div>
-      <div class="label">Inventory</div>
-    </a>
-
-    <a class="stat" href="{% url 'admin_dashboard:rep' %}">
-      <div class="num">{{ reports }}</div>
-      <div class="label">Reports</div>
-    </a>
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="stat-label">Patients</div>
+    <div class="stat-number">{{ patients }}</div>
+    <div class="stat-trend">↑ +12%</div>
   </div>
-
-  <div class="recent">
-    <h3>Recent appointments</h3>
-    {% if recent_appts %}
-      <table class="table small">
-        <thead>
-          <tr><th>#</th><th>When</th><th>Patient</th><th>Doctor</th><th>Status</th></tr>
-        </thead>
-        <tbody>
-        {% for ap in recent_appts %}
-          <tr>
-            <td>{{ forloop.counter }}</td>
-            <td>{{ ap.when|date:"M d, Y H:i" }}</td>
-            <td>{{ ap.patient }}</td>
-            <td>{{ ap.doctor }}</td>
-            <td>{{ ap.get_status_display }}</td>
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
-    {% else %}
-      <p class="text-muted">No appointments yet.</p>
-    {% endif %}
+  <div class="stat-card">
+    <div class="stat-label">Doctors</div>
+    <div class="stat-number">{{ doctors }}</div>
+    <div class="stat-trend">↑ +55%</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Nurses</div>
+    <div class="stat-number">{{ staff }}</div>
+    <div class="stat-trend">↑ +18%</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Medicines</div>
+    <div class="stat-number">{{ inv }}</div>
+    <div class="stat-trend">↓ -33%</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Receptionists</div>
+    <div class="stat-number">{{ departments }}</div>
+    <div class="stat-trend">↑ +2%</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Total Revenue</div>
+    <div class="stat-number">${{ total_billing|floatformat:0 }}</div>
+    <div class="stat-trend">↑ +18%</div>
   </div>
 </div>
+
+<h2 class="section-title">Recent Approvals</h2>
+<div class="content-wrapper">
+  <div class="table-card">
+    {% if recent_appts %}
+    <table>
+      <thead>
+        <tr>
+          <th>Patient</th>
+          <th>Doctor</th>
+          <th>Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for ap in recent_appts %}
+        <tr>
+          <td>{{ ap.patient }}</td>
+          <td>{{ ap.doctor }}</td>
+          <td>{{ ap.when|date:"M d, Y" }}</td>
+          <td>
+            {% if ap.status == 'done' %}
+              <span class="badge badge-completed">Completed</span>
+            {% elif ap.status == 'sch' %}
+              <span class="badge badge-scheduled">Scheduled</span>
+            {% else %}
+              <span class="badge badge-canceled">Canceled</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p style="color: #999; text-align: center; padding: 30px;">No appointments yet.</p>
+    {% endif %}
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 20px;">
+    <div class="chart-card">
+      <h3>Medicine Stock Levels</h3>
+      <div style="height: 180px; background: #f9fafb; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #999;">
+        Stock Data
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <h3>Staff Distribution</h3>
+      <div class="staff-item">
+        <span>Doctors</span>
+        <span>{{ doctors }}</span>
+      </div>
+      <div class="staff-item">
+        <span>Staff</span>
+        <span>{{ staff }}</span>
+      </div>
+      <div class="staff-item" style="border-bottom: none;">
+        <span>Departments</span>
+        <span>{{ departments }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if top_medicines %}
+<h2 class="section-title">Top Medicines in Stock</h2>
+<div class="chart-card">
+  {% for medicine in top_medicines %}
+  <div class="medicine-item">
+    <span>{{ medicine.name }}</span>
+    <span>{{ medicine.qty }} units — ${{ medicine.unit_price }}/unit</span>
+  </div>
+  {% if not forloop.last %}
+  {% endif %}
+  {% endfor %}
+</div>
+{% endif %}
+
 {% endblock %}
