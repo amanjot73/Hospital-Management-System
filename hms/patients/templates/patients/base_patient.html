@@ -103,12 +103,11 @@
         </div>
         <div class="menu-item" onclick="window.location.href='/appointments/book_appointment/'" >Book Appointment</div>
         <div class="menu-item" onclick="window.location.href='/appointments/patient_my_appointment/'">My Appointments</div>
-        <div class="menu-item">Prescriptions</div>
-        <div class="menu-item">Lab Reports</div>
-        <div class="menu-item">Bills & Payments</div>
-        <div class="menu-item">Support</div>
+        <div class="menu-item" onclick="window.location.href='/reports/'">Lab Reports</div>
+        <div class="menu-item" onclick="window.location.href='/billing/'">Bills & Payments</div>
+        <div class="menu-item" onclick="window.location.href='/payments/'">Payment History</div>
 
-        <div class="logout">Logout</div>
+        <div class="logout" onclick="if(confirm('Logout?')) window.location.href='/accounts/logout/';">Logout</div>
     </div>
 
     <!-- Main Content -->
@@ -129,19 +128,19 @@
                 {% endif %}
             </div>
 
-            <div class="card">
-                <h3>Active Prescriptions</h3>
-                <p>0 Medicines</p>
-            </div>
-
-            <div class="card">
-                <h3>Pending Bills</h3>
-                <p>₹0</p>
-            </div>
-
-            <div class="card">
+            <div class="card" onclick="window.location.href='/reports/'">
                 <h3>Latest Lab Report</h3>
-                <p>No recent reports</p>
+                <p>Click to view your lab reports</p>
+            </div>
+
+            <div class="card" onclick="window.location.href='/billing/'">
+                <h3>Pending Bills</h3>
+                <p>Click to view your bills</p>
+            </div>
+
+            <div class="card" onclick="window.location.href='/payments/'">
+                <h3>Payment History</h3>
+                <p>View your payment records</p>
             </div>
         </div>
 

@@ -15,17 +15,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include  # Make sure 'include' is imported
+from django.urls import path, include  
 from django.conf.urls.static import static
 from django.conf import settings
 urlpatterns = [
-    # path('admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls')),  # Use include()
-    path('patients/', include('patients.urls')),  # Assuming you have this
-    path('doctors/', include('doctors.urls')),    # Assuming you have this
-    path('appointments/', include('appointments.urls')),    # Assuming you have this
-    path('Reception/', include('Reception.urls')),    # Assuming you have this
     path('admin/', admin.site.urls),
-    # path('', include('appointments.urls')),
-    # path('',include('Reception.urls')),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('dashboard/', include('admin_dashboard.urls')),
+    path('accounts/', include('accounts.urls')),
+    path('patients/', include('patients.urls')),
+    path('doctors/', include('doctors.urls')),
+    path('appointments/', include('appointments.urls')),
+    path('Reception/', include('Reception.urls')),
+    path('billing/', include('billing.urls')),
+    path('payments/', include('payments.urls')),
+    path('reports/', include('reports.urls')),
+]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
