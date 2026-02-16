@@ -1,0 +1,40 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{% block title %}HMS Admin{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'admin_dashboard/css/style.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="logo">HMS Admin</div>
+      <nav class="nav">
+        <a href="{% url 'admin_dashboard:home' %}"><i class="dashboard" aria-hidden="true"></i> Dashboard</a>
+        <a href="{% url 'admin_dashboard:pt' %}"><i class="injured" aria-hidden="true"></i> Patients</a>
+        <a href="{% url 'admin_dashboard:dr' %}"><i class="doctor" aria-hidden="true"></i> Doctors</a>
+        <a href="{% url 'admin_dashboard:ap' %}"><i class="calendar" aria-hidden="true"></i> Appointments</a>
+        <a href="{% url 'admin_dashboard:dep' %}"><i class="sitemap" aria-hidden="true"></i> Departments</a>
+        <a href="{% url 'admin_dashboard:st' %}"><i class="users-cog" aria-hidden="true"></i> Staff</a>
+        <a href="{% url 'admin_dashboard:bill' %}"><i class="invoice" aria-hidden="true"></i> Billing</a>
+        <a href="{% url 'admin_dashboard:inv' %}"><i class="boxes" aria-hidden="true"></i> Inventory</a>
+        <a href="{% url 'admin_dashboard:rep' %}"><i class="chart-line" aria-hidden="true"></i> Reports</a>
+      </nav>
+    </header>
+
+    <main class="main">
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+      <small>© {% now "Y" %} Hospital Management System</small>
+    </footer>
+  </div>
+
+  <script src="{% static 'admin_dashboard/js/script.js' %}"></script>
+</body>
+</html>
