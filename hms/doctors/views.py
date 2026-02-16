@@ -55,3 +55,12 @@ def doctor_register(request):
         return render(request,'doctors/login_doctor.html')
 
     return render(request, 'doctors/register_doctor.html')
+
+def doctor_dashboard(request):
+    d = request.session.get('doctor_id')
+    db = doctor.objects.get(id = d)
+    a2 = appointments.objects.filter(doctor = db.doctor_name)
+    a = appointments.objects.filter(
+        doctor = db.doctor_name
+        ).count()
+    return render(request,'doctors/doctor_dashboard.html',{'c':a , 'c2':a2})
