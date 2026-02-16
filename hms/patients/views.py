@@ -14,6 +14,7 @@ def patient_login(request):
         if m:
             request.session['patient_id'] = m.id
             return redirect('pre_patient')
+        
     return render(request, 'patients/login_patient.html')
 def view_profile(request):
     patient_id = request.session.get('patient_id')    

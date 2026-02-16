@@ -46,7 +46,10 @@
     }
 
     .login-box {
-        width: 350px;
+        width: 40%;
+        min-width: 400px;
+        max-width: 550px;
+        /* width: 350px; */
         padding: 40px;
         background: white;
         border-radius: 8px;
@@ -103,10 +106,9 @@
 
                     <h5 style="padding-top: 1%; padding-bottom: 1%;">OR</h3>
                 </center>
-                <button type="submit">
-                    <a href="{% url 'register_patient' %}">
-                        Register
-                    </a>
+                <button type="button" onclick="window.location.href='{% url 'register_patient' %}'">
+                    Register
+                    
                 </button>
             </form>
         </div>
