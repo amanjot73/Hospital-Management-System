@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicare Hospital Pharmacy</title>
+
+    <!-- ✅ Correct CSS linking for Django -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <!-- Background Image Container -->
+    <div class="background-container">
+        <div class="overlay"></div>
+    </div>
+
+    <!-- Main Content Wrapper -->
+    <div class="container">
+        
+        <!-- Header Section -->
+        <header class="header">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <i data-lucide="leaf"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>MEDICARE</h1>
+                    <span>Hospital Pharmacy</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <main class="hero-content">
+            
+            <h2 class="main-heading">
+                Welcome to <br>
+                <span class="highlight">Medicare</span> Hospital <br>
+                Pharmacy
+            </h2>
+
+            <div class="banner-strip-wrapper">
+                <div class="banner-strip">
+                    <p>Fast • Reliable • Digital Medicine Management</p>
+                </div>
+            </div>
+
+            <div class="features-list">
+                <div class="feature-item">
+                    <div class="check-icon">
+                        <i data-lucide="check"></i>
+                    </div>
+                    <span>Instant Medicine Search</span>
+                </div>
+
+                <div class="feature-item">
+                    <div class="check-icon">
+                        <i data-lucide="check"></i>
+                    </div>
+                    <span>Automated Billing</span>
+                </div>
+
+                <div class="feature-item">
+                    <div class="check-icon">
+                        <i data-lucide="check"></i>
+                    </div>
+                    <span>Real-Time Stock Updates</span>
+                </div>
+            </div>
+
+            <!-- ✅ Button linked to Django URL -->
+            <div class="cta-container">
+                <a href="{% url 'medicine_list' %}" class="cta-button">
+                    Manage Inventory
+                    <i data-lucide="arrow-right" class="arrow-icon"></i>
+                </a>
+            </div>
+
+        </main>
+
+        <footer class="footer">
+            <p>&copy; <script>document.write(new Date().getFullYear())</script> Medicare Hospital Pharmacy System. All rights reserved.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body>
+</html>
