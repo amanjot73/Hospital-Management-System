@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>HMS Admin — preview</title>
+  <!-- relative path to your app static folder so file:// preview works -->
+  <link rel="stylesheet" href="../../static/admin_dashboard/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="logo">HMS Admin — preview</div>
+      <nav class="nav">
+        <a href="#"><i class="ico-dash ico fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="#"><i class="ico-patient ico fas fa-user-injured"></i> Patients</a>
+        <a href="#"><i class="ico-doctor ico fas fa-user-md"></i> Doctors</a>
+        <a href="#"><i class="ico-appt ico fas fa-calendar-check"></i> Appointments</a>
+        <a href="#"><i class="ico-dept ico fas fa-sitemap"></i> Departments</a>
+        <a href="#"><i class="ico-staff ico fas fa-users-cog"></i> Staff</a>
+      </nav>
+    </header>
+
+    <main class="main">
+      <div class="dashboard">
+        <div class="cards">
+          <a class="stat"><div class="num">12</div><div class="label">Patients</div></a>
+          <a class="stat"><div class="num">5</div><div class="label">Doctors</div></a>
+          <a class="stat"><div class="num">7</div><div class="label">Appointments</div></a>
+          <a class="stat"><div class="num">3</div><div class="label">Departments</div></a>
+        </div>
+
+        <div class="recent panel">
+          <div class="panel-header"><h3>Recent appointments</h3></div>
+          <div class="panel-body">
+            <table class="table">
+              <thead><tr><th>#</th><th>When</th><th>Patient</th><th>Doctor</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td>Feb 16, 2026 10:00</td><td>A. Singh</td><td>Dr. Lee</td><td>Scheduled</td></tr>
+                <tr><td>2</td><td>Feb 16, 2026 11:30</td><td>M. Patel</td><td>Dr. Gomez</td><td>Completed</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer"><small>Preview — static (open this file directly). Run Django to get dynamic data.</small></footer>
+  </div>
+
+  <script src="../../static/admin_dashboard/js/script.js"></script>
+</body>
+</html>

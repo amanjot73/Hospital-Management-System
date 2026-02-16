@@ -1,0 +1,14 @@
+{% extends 'admin_dashboard/base.html' %}
+{% block title %}Confirm delete — HMS{% endblock %}
+{% block content %}
+<div class="panel">
+  <div class="panel-header"><h2>Confirm delete</h2></div>
+  <div class="panel-body">
+    <p>Are you sure you want to delete "<strong>{{ object }}</strong>"?</p>
+    <form method="post">{% csrf_token %}
+      <button class="btn btn-danger" type="submit">Delete</button>
+      <a class="btn" href="javascript:history.back()">Cancel</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

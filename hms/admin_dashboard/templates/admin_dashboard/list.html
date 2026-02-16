@@ -1,0 +1,33 @@
+{% extends 'admin_dashboard/base.html' %}
+{% block title %}{{ title }} — HMS{% endblock %}
+{% block content %}
+<div class="panel">
+  <div class="panel-header">
+    <h2>{{ title }}</h2>
+    {% if add_url %}
+      <a class="btn" href="{% url add_url %}"><i class="ico-add ico fas fa-plus" aria-hidden="true"></i> Add</a>
+    {% endif %}
+  </div>
+  <div class="panel-body">
+    {% if objs %}
+      <table class="table">
+        <thead><tr><th>#</th><th>Item</th><th>Actions</th></tr></thead>
+        <tbody>
+          {% for obj in objs %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ obj }}</td>
+            <td class="actions">
+              {% if edit_name %}<a class="btn btn-sm" href="{% url edit_name obj.pk %}"><i class="ico-edit ico fas fa-edit" aria-hidden="true"></i></a>{% endif %}
+              {% if del_name %}<a class="btn btn-sm btn-danger" href="{% url del_name obj.pk %}"><i class="ico-trash ico fas fa-trash" aria-hidden="true"></i></a>{% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p class="text-muted">No {{ singular|lower }} yet.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
