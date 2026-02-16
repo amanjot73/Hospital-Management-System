@@ -4,11 +4,24 @@ from django.conf import settings
 from django.core.mail import send_mail
 # Create your views here.
 def reception_dashboard(request):
-    return render(request, "Reception/reception_dashboard.html")
+    p = patient.objects.count()
+    d = doctor.objects.count()
+    return render(request,'Reception/reception_dashboard.html',
+                  {'pcount':p ,
+                   'dcount':d})
+    # return render(request, "Reception/reception_dashboard.html")
 def pre_receptionist(request):
     receptionist_id = request.session.get('receptionist_id')
-    r = receptionist.objects.get(id = receptionist_id)
-    return render(request,'Reception/pre_receptionist.html',{'r':r})
+
+    if not receptionist_id:
+        return redirect('login_receptionist')
+
+    r = receptionist.objects.filter(id=receptionist_id).first()
+
+    if not r:
+        return redirect('login_receptionist')
+
+    return render(request, 'Reception/pre_receptionist.html', {'r': r})
 
 def receptionist_login(request):
     if request.method == 'POST':

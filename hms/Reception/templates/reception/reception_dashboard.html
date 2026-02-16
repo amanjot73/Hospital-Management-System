@@ -1,62 +1,126 @@
-{% extends "base.html" %}
-{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reception Dashboard</title>
 
-{% block content %}
+    <style>
+        body{
+            margin:0;
+            font-family:Arial, sans-serif;
+            background:linear-gradient(135deg,#667eea,#764ba2);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+        }
 
-<div class="main-wrapper">
+        .dashboard{
+            width:900px;
+            background:white;
+            border-radius:20px;
+            padding:40px;
+            box-shadow:0 20px 40px rgba(0,0,0,0.2);
+        }
 
-    <div class="dashboard-header">
-        <h2 class="dashboard-title">Receptionist Dashboard</h2>
-    </div>
+        h1{
+            text-align:center;
+            margin-bottom:10px;
+        }
+
+        .subtitle{
+            text-align:center;
+            color:gray;
+            margin-bottom:40px;
+        }
+
+        .stats{
+            display:flex;
+            justify-content:space-between;
+            margin-bottom:40px;
+        }
+
+        .stat-card{
+            width:200px;
+            padding:25px;
+            background:#f4f6ff;
+            border-radius:15px;
+            text-align:center;
+            transition:0.3s;
+        }
+
+        .stat-card:hover{
+            transform:translateY(-5px);
+            box-shadow:0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .stat-number{
+            font-size:28px;
+            font-weight:bold;
+            margin-top:10px;
+            color:#4b4bff;
+        }
+
+        .actions{
+            display:grid;
+            grid-template-columns:1fr 1fr 1fr;
+            gap:20px;
+        }
+
+        .action-btn{
+            padding:20px;
+            border:none;
+            border-radius:15px;
+            background:#764ba2;
+            color:white;
+            font-size:16px;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        .action-btn:hover{
+            background:#5a3d82;
+            transform:scale(1.05);
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <h1>Reception Dashboard</h1>
+    <div class="subtitle">Manage patients, appointments & hospital flow</div>
 
     <!-- Stats Section -->
-    <div class="stats-grid">
+    <div class="stats">
         <div class="stat-card">
-            <h3>120</h3>
-            <p>Total Patients</p>
+            Total Patients
+            <div class="stat-number">{{ pcount|default:"NOT RECEIVED"}}</div>
         </div>
 
         <div class="stat-card">
-            <h3>15</h3>
-            <p>Today's Appointments</p>
+            Today's Appointments
+            <div class="stat-number">{{ acount|default:"NOT RECEIVED"}}</div>
         </div>
 
         <div class="stat-card">
-            <h3>8</h3>
-            <p>Available Doctors</p>
-        </div>
-
-        <div class="stat-card">
-            <h3>5</h3>
-            <p>Pending Bills</p>
+            Total Doctors
+            <div class="stat-number">{{ dcount|default:"NOT RECEIVED"}}</div>
         </div>
     </div>
 
-    <!-- Appointment Table -->
-    <div class="table-section">
-        <h3>Today's Appointments</h3>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Patient</th>
-                    <th>Doctor</th>
-                    <th>Time</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td>John Doe</td>
-                    <td>Dr. Smith</td>
-                    <td>10:30 AM</td>
-                    <td>Confirmed</td>
-                </tr>
-            </tbody>
-        </table>
+    <!-- Actions -->
+    <div class="actions">
+        <button class="action-btn" onclick="window.location.href='{% url 'register_patient' %}'">Register Patient</button>
+        <button class="action-btn" onclick="window.location.href='{% url 'book_appointment' %}'">Book Appointment</button>
+        <button class="action-btn" >View Appointments</button>
+        <button class="action-btn">Generate Bill</button>
+        <button class="action-btn">View Doctors</button>
+        <button class="action-btn" onclick="window.location.href='{% url 'login_receptionist' %}'">Logout</button>
     </div>
 
 </div>
 
-{% endblock %}
+</body>
+</html>
