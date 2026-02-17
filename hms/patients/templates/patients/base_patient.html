@@ -103,11 +103,13 @@
         </div>
         <div class="menu-item" onclick="window.location.href='/appointments/book_appointment/'" >Book Appointment</div>
         <div class="menu-item" onclick="window.location.href='/appointments/patient_my_appointment/'">My Appointments</div>
-        <div class="menu-item" onclick="window.location.href='/reports/'">Lab Reports</div>
-        <div class="menu-item" onclick="window.location.href='/billing/'">Bills & Payments</div>
-        <div class="menu-item" onclick="window.location.href='/payments/'">Payment History</div>
+        <div class="menu-item">Prescriptions</div>
+        <div class="menu-item">Lab Tests</div>
+        <div class="menu-item">Lab Reports</div>
+        <div class="menu-item">Bills & Payments</div>
+        <div class="menu-item">Support</div>
 
-        <div class="logout" onclick="if(confirm('Logout?')) window.location.href='/accounts/logout/';">Logout</div>
+        <div class="logout" onclick="window.location.href='{% url 'home' %}'">Logout</div>
     </div>
 
     <!-- Main Content -->
