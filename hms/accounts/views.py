@@ -188,7 +188,8 @@ def base_patient(request):
         'm':m,
         'count':appointment_count})
 
-
-
-        
+def logout_patient(request):
+    if 'patient_id' in request.session:
+        del request.session['patient_id']
+    return redirect('login_patient')
         

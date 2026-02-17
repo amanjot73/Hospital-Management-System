@@ -130,19 +130,19 @@
                 {% endif %}
             </div>
 
-            <div class="card">
-                <h3>Active Prescriptions</h3>
-                <p>0 Medicines</p>
-            </div>
-
-            <div class="card">
-                <h3>Pending Bills</h3>
-                <p>₹0</p>
-            </div>
-
-            <div class="card">
+            <div class="card" onclick="window.location.href='/reports/'">
                 <h3>Latest Lab Report</h3>
-                <p>No recent reports</p>
+                <p>Click to view your lab reports</p>
+            </div>
+
+            <div class="card" onclick="window.location.href='/billing/'">
+                <h3>Pending Bills</h3>
+                <p>Click to view your bills</p>
+            </div>
+
+            <div class="card" onclick="window.location.href='/payments/'">
+                <h3>Payment History</h3>
+                <p>View your payment records</p>
             </div>
         </div>
 

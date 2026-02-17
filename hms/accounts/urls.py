@@ -19,6 +19,7 @@ urlpatterns = [
     # path('register_receptionist/', views.receptionist_register, name='register_receptionist'),  # Remove 'accounts/'
     path('', views.landing, name='landing'),  # Remove 'accounts/'
     path('temp/', views.temp, name='temp'),  # Remove 'accounts/'
+    path('logout/', views.logout_patient, name='logout'),  # Remove 'accounts/'
     # path('base_patient/', views.base_patient, name='base_patient'),  # Remove 'accounts/'
     # path('appointment/', views.appointment, name='patient_my_appointment'),  # Remove 'accounts/'
 ]
