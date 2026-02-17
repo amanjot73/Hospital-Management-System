@@ -4,6 +4,7 @@ from django.utils.timezone import now
 from accounts.models import*
 from django.core.mail import send_mail
 from hms import settings
+from patients import views
 # Create your views here.
 def user_dashboard(request):
     p = patient.objects.count()
@@ -46,7 +47,10 @@ def appointment(request):
         )
         m=patient.objects.filter(
             patient_name = patient_name
-        )
+        ).first()
+        if m:
+            request.session['patient_id'] = m.id 
+             
         send_mail(
             subject= "Appointment Scheduled",
             message=f"Hello {patient_name}, Your appointment is scheduled on {appointment_data} with Dr.{doctor}",
@@ -54,7 +58,6 @@ def appointment(request):
             recipient_list=[patient_email],
             fail_silently=False
         )
-        request.session['patient_id'] = m.id 
         return redirect('base_patient')
             
     return render(request,'appointments/book_appointment.html')

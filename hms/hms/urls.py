@@ -18,8 +18,12 @@ from django.contrib import admin
 from django.urls import path, include  # Make sure 'include' is imported
 from django.conf.urls.static import static
 from django.conf import settings
+from accounts.views import landing
 urlpatterns = [
     # path('admin/', admin.site.urls),
+    # path('')
+    # path('')
+    path('', landing, name='home'), 
     path('accounts/', include('accounts.urls')),  # Use include()
     path('patients/', include('patients.urls')),  # Assuming you have this
     path('doctors/', include('doctors.urls')),    # Assuming you have this
