@@ -99,6 +99,22 @@ button{
 button:hover{
     background:#0f1a3d;
 }
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #4ceb61;
+    border-radius: 6px;
+    resize: none;
+    font-family: Arial, sans-serif;
+    transition: 0.3s;
+}
+
+.form-group textarea:focus {
+    outline: none;
+    border-color: #1d2b64;
+    box-shadow: 0 0 5px rgba(29, 43, 100, 0.3);
+}
+
 </style>
 
 </head>
@@ -173,6 +189,16 @@ button:hover{
                     <p>No doctors available</p>
                     {% endfor %}
                 </div>
+            <div class="form-group">
+                <label>Reason for Appointment *</label>
+                <textarea 
+                    name="reason" 
+                    rows="4" 
+                    
+                    placeholder="Briefly describe your symptoms or reason for visit..." 
+                    required>
+                </textarea>
+            </div>
 
 </div>
 

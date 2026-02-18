@@ -1,47 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creating Billing List</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        form {
-            margin-top: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        input[type="text"] {
-            width: 300px;
-            padding: 8px;
-            margin-bottom: 10px;
-        }
-        input[type="submit"] {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        </style>
-</head>
-<body>
-    <h1>Creating Billing List</h1>   <!-- Creating Billing List-->
-
-    <form method="post">
-        {% csrf_token %}
-        <label for="patient">Patient:</label>
-        <input type="text" id="patient" name="patient"><br><br>
-        
-        <label for="amount">Amount:</label>
-        <input type="text" id="amount" name="amount"><br><br>
-        
-        <input type="submit" value="Create Billing">
+{% extends 'admin_dashboard/base.html' %}
+{% block title %}Create Bill — HMS{% endblock %}
+{% block content %}
+<div class="panel">
+  <div class="panel-header">
+    <h2>New Bill</h2>
+  </div>
+  <div class="panel-body">
+    <form method="post" class="form">
+      {% csrf_token %}
+      <div class="form-group">
+        {{ form.as_p }}
+      </div>
+      <button type="submit" class="btn btn-primary">Create</button>
+      <a href="{% url 'billing:list' %}" class="btn">Cancel</a>
     </form>
-</html>
+  </div>
+</div>
+{% endblock %}

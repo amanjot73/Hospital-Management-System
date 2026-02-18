@@ -1,40 +1,260 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>{% block title %}HMS Admin{% endblock %}</title>
-  <link rel="stylesheet" href="{% static 'admin_dashboard/css/style.css' %}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{% block title %}HMS Admin{% endblock %}</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f6f9;
+}
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 240px;
+    background: #1e293b;
+    color: white;
+    padding: 25px 20px;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.menu a {
+    display: block;
+    padding: 12px;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    transition: 0.2s;
+}
+
+.menu a:hover {
+    background: #334155;
+}
+
+.main {
+    flex: 1;
+    padding: 20px 30px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.search {
+    padding: 8px 12px;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.user {
+    background: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.page-title {
+    margin-bottom: 25px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #777;
+}
+
+.stat-number {
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.table-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    margin-bottom: 25px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background: #f8fafc;
+    text-align: left;
+}
+
+.badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: white;
+}
+
+.badge-completed {
+    background: #16e346;
+}
+
+.badge-scheduled {
+    background: #ffc107;
+    color: black;
+}
+
+.badge-canceled {
+    background: #7e0d18;
+}
+
+.form-card {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    max-width: 600px;
+}
+
+form p {
+    margin-bottom: 15px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.btn, .btn-save, .btn-edit, .btn-delete, .btn-cancel {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+}
+
+.btn, .btn-save {
+    background: #3b82f6;
+    color: white;
+}
+
+.btn-edit {
+    background: #ffc107;
+    color: black;
+}
+
+.btn-delete {
+    background: #dc3545;
+    color: white;
+}
+
+.btn-cancel {
+    background: #6c757d;
+    color: white;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+</style>
 </head>
+
 <body>
-  <div class="container">
-    <header class="header">
-      <div class="logo">HMS Admin</div>
-      <nav class="nav">
-        <a href="{% url 'admin_dashboard:home' %}"><i class="dashboard" aria-hidden="true"></i> Dashboard</a>
-        <a href="{% url 'admin_dashboard:pt' %}"><i class="injured" aria-hidden="true"></i> Patients</a>
-        <a href="{% url 'admin_dashboard:dr' %}"><i class="doctor" aria-hidden="true"></i> Doctors</a>
-        <a href="{% url 'admin_dashboard:ap' %}"><i class="calendar" aria-hidden="true"></i> Appointments</a>
-        <a href="{% url 'admin_dashboard:dep' %}"><i class="sitemap" aria-hidden="true"></i> Departments</a>
-        <a href="{% url 'admin_dashboard:st' %}"><i class="users-cog" aria-hidden="true"></i> Staff</a>
-        <a href="{% url 'admin_dashboard:bill' %}"><i class="invoice" aria-hidden="true"></i> Billing</a>
-        <a href="{% url 'admin_dashboard:inv' %}"><i class="boxes" aria-hidden="true"></i> Inventory</a>
-        <a href="{% url 'admin_dashboard:rep' %}"><i class="chart-line" aria-hidden="true"></i> Reports</a>
-      </nav>
-    </header>
+<div class="layout">
+    <aside class="sidebar">
+        <div class="logo">HMS Admin</div>
+        <nav class="menu">
+            <a href="{% url 'admin_dashboard:home' %}">
+                <i class="home"></i> Dashboard
+            </a>
+            <a href="{% url 'admin_dashboard:pt' %}">
+                <i class="patient"></i> Patients
+            </a>
+            <a href="{% url 'admin_dashboard:dr' %}">
+                <i class="doctors"></i> Doctors
+            </a>
+            <a href="{% url 'admin_dashboard:ap' %}">
+                <i class="appointments"></i> Appointments
+            </a>
+            <a href="{% url 'admin_dashboard:bill' %}">
+                <i class="billing"></i> Billing
+            </a>
+            <a href="{% url 'admin_dashboard:rep' %}">
+                <i class="reports"></i> Reports
+            </a>
+        </nav>
+
+    </aside>
 
     <main class="main">
-      {% block content %}{% endblock %}
+
+        <div class="topbar">
+            <input type="text" class="search" placeholder="Search...">
+            <div class="user">
+                <i class="admin"></i> Admin
+            </div>
+        </div>
+
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+
     </main>
 
-    <footer class="footer">
-      <small>© {% now "Y" %} Hospital Management System</small>
-    </footer>
-  </div>
+</div>
 
-  <script src="{% static 'admin_dashboard/js/script.js' %}"></script>
 </body>
 </html>

@@ -2,6 +2,8 @@ from django.shortcuts import*
 from .models import*
 from django.conf import settings
 from django.core.mail import send_mail
+def landing(request):
+    return render(request,'index.html')
 def patient_login(request):
     if request.method == 'POST':
         patient_name = request.POST.get('patient_name')
@@ -186,7 +188,8 @@ def base_patient(request):
         'm':m,
         'count':appointment_count})
 
-
-
-        
+def logout_patient(request):
+    if 'patient_id' in request.session:
+        del request.session['patient_id']
+    return redirect('login_patient')
         
