@@ -48,3 +48,13 @@ class appointments(models.Model):
     reason = models.TextField()
     def __str__(self):
         return self.patient_name
+# ================================================================
+class pharmacist(models.Model):
+    pharmacist_name = models.CharField(max_length=20)
+    pharmacist_number = models.CharField(max_length=20)
+    pharmacist_email = models.EmailField(max_length=20)
+    pharmacist_otp = models.CharField(max_length=10)
+    pharmacist_password = models.CharField(max_length=10)
+    
+    def __str__(self):
+        return self.pharmacist_name

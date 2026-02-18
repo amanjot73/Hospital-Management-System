@@ -1,0 +1,65 @@
+{% extends 'pharmacy/pharmacy_dashboard.html' %}
+
+{% block content %}
+<div class="main-content" style="margin-left: 260px; padding: 20px;">
+    <h2 style="margin-bottom: 20px;">Shopping Cart</h2>
+
+    {% if current_order %}
+    <div
+        style="background: #e3f2fd; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 5px solid #2196f3;">
+        <h3 style="margin: 0; color: #1565c0;">Fulfilling Order for: {{ current_order.patient_name }}</h3>
+    </div>
+    {% endif %}
+
+    <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr style="border-bottom: 2px solid #eee;">
+                    <th style="text-align: left; padding: 10px;">Medicine</th>
+                    <th style="padding: 10px;">Price</th>
+                    <th style="padding: 10px;">Quantity</th>
+                    <th style="text-align: right; padding: 10px;">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 15px 10px;">{{ item.medicine.name }}</td>
+                    <td style="text-align: center; padding: 15px 10px;">${{ item.medicine.price }}</td>
+                    <td style="text-align: center; padding: 15px 10px;">{{ item.quantity }}</td>
+                    <td style="text-align: right; padding: 15px 10px;">${{ item.total_price }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" style="text-align: center; padding: 30px; color: #666;">Your cart is empty.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" style="text-align: right; padding: 20px; font-weight: bold; font-size: 1.2em;">Total
+                        Amount:</td>
+                    <td style="text-align: right; padding: 20px; font-weight: bold; font-size: 1.2em; color: #27ae60;">
+                        ${{ total_price }}</td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div style="margin-top: 30px; text-align: right;">
+            <a href="{% url 'medicine_list' %}" style="margin-right: 10px; text-decoration: none; color: #666;">Continue
+                Shopping</a>
+            {% if cart_items and current_order %}
+            <a href="{% url 'checkout' %}"
+                style="display: inline-block; padding: 12px 25px; background: #27ae60; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                Generate Bill & Complete Order
+            </a>
+            {% elif cart_items %}
+            <a href="#" onclick="alert('Please accept an order first via Pending Orders to checkout.')"
+                style="display: inline-block; padding: 12px 25px; background: #95a5a6; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; cursor: not-allowed;">
+                Generate Bill
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
