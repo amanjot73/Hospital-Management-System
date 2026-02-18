@@ -70,5 +70,5 @@ def my_appointment(request):
         m = appointments.objects.filter(
             patient_name=patient_obj.patient_name
         )
-        return render(request,'appointments/patient_my_appointment.html')
+        return render(request,'appointments/patient_my_appointment.html',{'m':m})
         
