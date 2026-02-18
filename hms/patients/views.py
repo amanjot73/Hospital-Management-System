@@ -2,6 +2,9 @@ from django.shortcuts import*
 from accounts.models import*
 from django.conf import settings
 from django.core.mail import send_mail
+from .models import PrescriptionOrder
+
+
 def patient_login(request):
     if request.method == 'POST':
         patient_name = request.POST.get('patient_name')
@@ -63,11 +66,6 @@ def patient_register(request):
             fail_silently=False
         )
         return render(request,'patients/login_patient.html')
-
-
-
-
-
     return render(request, 'patients/register_patient.html')
 
 def patient_dashboard(request):
@@ -83,3 +81,32 @@ def base_patient(request):
     return render(request,'patients/base_patient.html',{
         'm':m,
         'count':appointment_count})
+
+
+# =======================================================================================
+def prescription_home(request):
+    return render(request, 'patients/prescription_home.html')
+
+
+def order_medicine(request):
+    patient_id_session = request.session.get('patient_id')
+    if not patient_id_session:
+        return redirect('login_patient')
+    
+    patient_obj = patient.objects.get(id=patient_id_session)
+
+    if request.method == "POST":
+        prescription = request.FILES.get("prescription_file")
+
+        PrescriptionOrder.objects.create(
+            patient_name=patient_obj.patient_name,
+            patient_id=str(patient_obj.id),
+            prescription_file=prescription
+        )
+
+        return redirect('base_patient')
+
+    return render(request, 'patients/order_medicine.html', {'patient': patient_obj})
+
+
+

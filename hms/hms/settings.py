@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'admin_dashboard',
     'accounts',
     'patients',
     'doctors',
@@ -45,6 +46,9 @@ INSTALLED_APPS = [
     'Nurse',
     'Reception',
     'pharmacy',
+    'billing',
+    'payments',
+    'reports',
 ]
 
 MIDDLEWARE = [
@@ -58,6 +62,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'hms.urls'
+
+APPEND_SLASH = True
 
 TEMPLATES = [
     {

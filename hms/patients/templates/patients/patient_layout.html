@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Patient Dashboard{% endblock %}</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+            background-color: #f4f6f9;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #1e3c72;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding-top: 20px;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .menu-item {
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            color: white;
+            text-decoration: none;
+            display: block;
+        }
+
+        .menu-item:hover {
+            background-color: #2a5298;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .logout {
+            margin-top: auto;
+            padding: 15px 20px;
+            background: #b22222;
+            cursor: pointer;
+            color: white;
+            text-decoration: none;
+            display: block;
+        }
+
+        .logout:hover {
+            background: #8b0000;
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Patient Panel</h2>
+
+        <a href="{% url 'view_profile_patient' %}" class="menu-item">
+            My Profile
+        </a>
+
+        <a href="{% url 'book_appointment' %}" class="menu-item">
+            Book Appointment
+        </a>
+
+        <a href="{% url 'patient_my_appointment' %}" class="menu-item">
+            My Appointments
+        </a>
+
+        <a href="{% url 'prescription_home' %}" class="menu-item">
+            Prescriptions
+        </a>
+
+        <a href="#" class="menu-item">Lab Tests</a>
+        <a href="{% url 'reports:list' %}" class="menu-item">Lab Reports</a>
+        <a href="{% url 'billing:list' %}" class="menu-item">Bills & Payments</a>
+        <a href="#" class="menu-item">Support</a>
+
+        <a href="{% url 'home' %}" class="logout">
+            Logout
+        </a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+</body>
+
+</html>
