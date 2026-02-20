@@ -11,6 +11,9 @@ urlpatterns = [
     path('login_doctor/', views.doctor_login, name='login_doctor'),      # Remove 'accounts/'
     path('register_doctor/', views.doctor_register, name='register_doctor'),  # Remove 'accounts/'
     path('doctor_dashboard/', views.doctor_dashboard, name='doctor_dashboard'),  # Remove 'accounts/'
+    path('my_appointments/', views.my_appointment, name='my_appointments'),  # Remove 'accounts/'
+    path('patient_record/', views.patient_record, name='patient_record'),  # Remove 'accounts/'
+    path('prescription/', views.create_prescription, name='prescription'),  # Remove 'accounts/'
     
 
 ]

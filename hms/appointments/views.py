@@ -29,6 +29,8 @@ def appointment(request):
     if request.method == 'POST':
         patient_name = request.POST.get('patient_name')
         patient_age = request.POST.get('patient_age')
+        if not patient_age:
+            patient_age = None
         patient_email = request.POST.get('patient_email')
         patient_number = request.POST.get('patient_number')
         appointment_data = request.POST.get('appointment_data')
@@ -70,5 +72,5 @@ def my_appointment(request):
         m = appointments.objects.filter(
             patient_name=patient_obj.patient_name
         )
-        return render(request,'appointments/patient_my_appointment.html')
+        return render(request,'appointments/patient_my_appointment.html',{'m9':m})
         

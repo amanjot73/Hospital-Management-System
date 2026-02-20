@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
 
-# from .forms import MedicineForm
+from .forms import MedicineForm
 
 
 # ===============================
@@ -41,7 +41,8 @@ def add_medicine(request):
         form = MedicineForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('medicine_list')
+            messages.success(request, 'Medicine added successfully!')
+            return redirect('add_medicine')
     else:
         form = MedicineForm()
 
@@ -92,10 +93,10 @@ def pharmacy_dashboard(request):
     # Real-time stats
     today = timezone.now().date()
     today_revenue = Bill.objects.filter(created_at__date=today).aggregate(models.Sum('total_amount'))['total_amount__sum'] or 0
-    low_stock_count = Medicine.objects.filter(stock__lt=10).count()
+    low_stock_count = Medicine.objects.filter(stock__lt=50).count()
     
     # Inventory Alerts (Low stock or near expiry)
-    low_stock_medicines = Medicine.objects.filter(stock__lt=10)
+    low_stock_medicines = Medicine.objects.filter(stock__lt=50)
     near_expiry_medicines = Medicine.objects.filter(expiry_date__lte=today + timezone.timedelta(days=30), expiry_date__gte=today)
     
     return render(request, 'pharmacy/pharmacy_dashboard.html', {
@@ -171,7 +172,7 @@ def pharmacist_login(request):
 # ==============================logout================================================
 def pharmacist_logout(request):
     request.session.flush()
-    return redirect('pharmacy_login')
+    return redirect('home')
 
 def pending_orders(request):
     if 'pharmacist_id' not in request.session:

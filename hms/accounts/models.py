@@ -39,7 +39,7 @@ class receptionist(models.Model):
 
 class appointments(models.Model):
     patient_name  = models.CharField(max_length=20)
-    patient_age = models.IntegerField()
+    patient_age = models.IntegerField(null=True, blank=True)
     patient_email = models.EmailField()
     patient_number = models.CharField(max_length=20)
     appointment_data = models.DateField()
@@ -58,3 +58,13 @@ class pharmacist(models.Model):
     
     def __str__(self):
         return self.pharmacist_name
+    
+
+class prescription(models.Model):
+    patient_name = models.CharField(max_length=20)
+    medicines = models.TextField()
+
+    
+    def __str__(self):
+        return self.patient_name
+

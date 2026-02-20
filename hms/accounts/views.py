@@ -185,11 +185,27 @@ def base_patient(request):
         patient_name=m.patient_name
     ).count()
     return render(request,'accounts/base_patient.html',{
-        'm':m,
+        'm2':m,
         'count':appointment_count})
 
 def logout_patient(request):
     if 'patient_id' in request.session:
         del request.session['patient_id']
     return redirect('login_patient')
-        
+
+
+def admin_dashboard(request):
+    p2 = patient.objects.all()
+    p3 = patient.objects.all().count()
+    d2 = doctor.objects.all()
+    d3 = doctor.objects.all().count()
+
+    return render(request,'accounts/admin_dashboard.html',{'p3':p3,'d3':d3})
+def p(request):
+    p2 = patient.objects.all()
+    p3 = patient.objects.all().count()
+    return render(request,'accounts/patients.html',{'p2':p2,'p3':p3})    
+def d(request):
+    d2 = doctor.objects.all()
+    d3 = doctor.objects.all().count()
+    return render(request,'accounts/doctors.html',{'d2':d2, 'd3':d3})    

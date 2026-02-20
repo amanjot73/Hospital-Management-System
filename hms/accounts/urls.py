@@ -20,6 +20,9 @@ urlpatterns = [
     path('', views.landing, name='landing'),  # Remove 'accounts/'
     path('temp/', views.temp, name='temp'),  # Remove 'accounts/'
     path('logout/', views.logout_patient, name='logout'),  # Remove 'accounts/'
+    path('admin_dashboard/', views.admin_dashboard, name='admin_dashboard'),  # Remove 'accounts/'
+    path('patient/', views.p, name='patient'),  # Remove 'accounts/'
+    path('doctor/', views.d, name='doctor'),  # Remove 'accounts/'
     # path('base_patient/', views.base_patient, name='base_patient'),  # Remove 'accounts/'
     # path('appointment/', views.appointment, name='patient_my_appointment'),  # Remove 'accounts/'
 ]

@@ -62,6 +62,74 @@
         .logout:hover {
             background: #8b0000;
         }
+        <style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family:Arial, sans-serif;
+    }
+
+    body{
+        display:flex;
+        height:100vh;
+        background:linear-gradient(135deg,#e6f7ff,#f0f9ff);
+    }
+
+    /* ===== Sidebar (Doctor Theme Applied) ===== */
+    .sidebar{
+        width:250px;
+        background:#0a3d62;
+        color:white;
+        padding:30px 20px;
+        display:flex;
+        flex-direction:column;
+    }
+
+    .sidebar h2{
+        text-align:center;
+        margin-bottom:40px;
+    }
+
+    .menu-item{
+        padding:15px;
+        margin-bottom:10px;
+        border-radius:8px;
+        cursor:pointer;
+        transition:0.3s;
+        color:white;
+        text-decoration:none;
+        display:block;
+    }
+
+    .menu-item:hover{
+        background:#1e5f8a;
+    }
+
+    /* ===== Main Content ===== */
+    .main-content{
+        flex:1;
+        padding:40px;
+        overflow-y:auto;
+    }
+
+    /* Logout same as doctor style */
+    .logout{
+        margin-top:auto;
+        padding:15px;
+        border-radius:8px;
+        background:#b22222;
+        transition:0.3s;
+        text-decoration:none;
+        color:white;
+        display:block;
+    }
+
+    .logout:hover{
+        background:#8b0000;
+    }
+</style>
+
     </style>
     {% block extra_css %}{% endblock %}
 </head>

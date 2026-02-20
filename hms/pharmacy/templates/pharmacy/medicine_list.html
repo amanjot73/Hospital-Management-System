@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Medicine Inventory</title>
@@ -81,7 +82,7 @@
             background: white;
             padding: 25px;
             border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
         }
 
         table {
@@ -93,7 +94,8 @@
             background: #f8f9fa;
         }
 
-        th, td {
+        th,
+        td {
             padding: 15px;
             text-align: left;
         }
@@ -124,85 +126,84 @@
         }
     </style>
 </head>
+
 <body>
 
-<div class="inventory-container">
+    <div class="inventory-container">
 
-    <div class="inventory-header">
-        <h2>Medicine Inventory</h2>
+        <div class="inventory-header">
+            <h2>Medicine Inventory</h2>
 
-        <div class="header-actions">
+            <div class="header-actions">
 
-            <form action="{% url 'medicine_list' %}" method="GET" class="search-form">
-                <input type="text" name="q"
-                       placeholder="Search medicines..."
-                       value="{{ query|default:'' }}"
-                       class="search-input">
+                <form action="{% url 'medicine_list' %}" method="GET" class="search-form">
+                    <input type="text" name="q" placeholder="Search medicines..." value="{{ query|default:'' }}"
+                        class="search-input">
 
-                <button type="submit" class="search-btn">
-                    Search 🔍
-                </button>
+                    <button type="submit" class="search-btn">
+                        Search 🔍
+                    </button>
 
-                {% if query %}
-                <a href="{% url 'medicine_list' %}" style="padding:10px;">Clear</a>
-                {% endif %}
-            </form>
+                    {% if query %}
+                    <a href="{% url 'medicine_list' %}" style="padding:10px;">Clear</a>
+                    {% endif %}
+                </form>
 
-            <a href="{% url 'cart_view' %}" class="cart-btn">
-                View Cart 🛒
-            </a>
+                <a href="{% url 'cart_view' %}" class="cart-btn">
+                    View Cart 🛒
+                </a>
 
+            </div>
         </div>
-    </div>
 
-    <div class="inventory-card">
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Manufacturer</th>
-                    <th>Stock</th>
-                    <th>Price</th>
-                    <th>Expiry</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
+        <div class="inventory-card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Manufacturer</th>
+                        <th>Stock</th>
+                        <th>Price</th>
+                        <th>Expiry</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
 
-            <tbody>
-                {% for med in medicines %}
-                <tr>
-                    <td>{{ med.name }}</td>
-                    <td>{{ med.manufacturer }}</td>
-                    <td>
-                        {% if med.stock < 10 %}
-                            <span class="low-stock">
+                <tbody>
+                    {% for med in medicines %}
+                    <tr>
+                        <td>{{ med.name }}</td>
+                        <td>{{ med.manufacturer }}</td>
+                        <td>
+                            {% if med.stock < 50 %} <span class="low-stock">
                                 {{ med.stock }} (Low)
-                            </span>
-                        {% else %}
-                            {{ med.stock }}
-                        {% endif %}
-                    </td>
-                    <td>${{ med.price }}</td>
-                    <td>{{ med.expiry_date }}</td>
-                    <td>
-                        <a href="{% url 'add_to_cart' med.id %}" class="add-cart-link">
-                            Add to Cart 🛒
-                        </a>
-                    </td>
-                </tr>
+                                </span>
+                                {% else %}
+                                {{ med.stock }}
+                                {% endif %}
+                        </td>
+                        <td>${{ med.price }}</td>
+                        <td>{{ med.expiry_date }}</td>
+                        <td>
+                            <a href="{% url 'add_to_cart' med.id %}" class="add-cart-link">
+                                Add to Cart 🛒
+                            </a>
+                        </td>
+                    </tr>
 
-                {% empty %}
-                <tr>
-                    <td colspan="6" class="no-data">
-                        No medicines found in inventory.
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="no-data">
+                            No medicines found in inventory.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
     </div>
-
-</div>
 
 </body>
+
 </html>
