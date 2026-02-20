@@ -64,3 +64,39 @@ def doctor_dashboard(request):
         doctor = db.doctor_name
         ).count()
     return render(request,'doctors/doctor_dashboard.html',{'c':a , 'c2':a2})
+
+def my_appointment(request):
+    d = request.session.get('doctor_id')
+    k = doctor.objects.get(id = d)
+    m = appointments.objects.filter(doctor=k.doctor_name)
+    return render(request,'doctors/my_appointments.html',{'q':m})
+
+def patient_record(request):
+    k = request.session.get('doctor_id')
+
+    m = doctor.objects.get(id=k)   # single doctor
+
+    a = appointments.objects.filter(doctor=m)  # all appointments
+    # p = patient.objects.filter(patient_name = a.patient)
+
+    return render(request, 'doctors/patient_record.html', {
+        'z': a,
+        'd' : m
+    })
+
+def create_prescription(request):
+    d = request.session.get('doctor_id')
+    d2 = doctor.objects.get(id = d)
+    f = appointments.objects.filter(doctor = d2)
+    if request.method == 'POST':
+
+        patient_name  = request.POST.get('patient_name')
+        medicines = request.POST.get('medicines')
+        prescription.objects.create(
+            patient_name = patient_name,
+            medicines = medicines
+        )
+        return redirect('/')
+    
+    return render(request,'doctors/prescription.html', {'f':f})
+

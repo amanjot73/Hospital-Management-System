@@ -87,7 +87,12 @@ def base_patient(request):
 def prescription_home(request):
     return render(request, 'patients/prescription_home.html')
 
-
+def my_prescription(request):
+    k  = request.session.get('patient_id')
+    p = patient.objects.get(id = k)
+    k = p.patient_name
+    m = prescription.objects.filter(patient_name  = p.patient_name)
+    return render(request,'patients/my_prescription.html',{'m':m , 'k':k})
 def order_medicine(request):
     patient_id_session = request.session.get('patient_id')
     if not patient_id_session:
