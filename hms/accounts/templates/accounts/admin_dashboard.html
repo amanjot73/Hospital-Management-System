@@ -146,7 +146,6 @@
         <div class="menu-item" onclick="window.location.href='{% url 'doctor' %}'">📅 Doctor</div>
         <div class="menu-item" onclick="window.location.href='{% url 'add_medicine' %}'">💊 Add Medicine</div>
 
-        <div class="menu-item">⚙ Profile</div>
         <div class="menu-item" onclick="window.location.href='{% url 'home' %}'">🚪 Logout</div>
     </div>
 
@@ -188,7 +187,7 @@
                     <th>Status</th>
                 </tr>
 
-                {% for i in c2 %}
+                {% for i in a %}
                 <tr>
                     <td>{{ i.patient_name }}</td>
                     <td>{{ i.appointment_time }}</td>

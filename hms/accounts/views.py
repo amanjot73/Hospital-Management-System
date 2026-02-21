@@ -2,6 +2,7 @@ from django.shortcuts import*
 from .models import*
 from django.conf import settings
 from django.core.mail import send_mail
+from django.utils import timezone
 def landing(request):
     return render(request,'index.html')
 def patient_login(request):
@@ -199,8 +200,13 @@ def admin_dashboard(request):
     p3 = patient.objects.all().count()
     d2 = doctor.objects.all()
     d3 = doctor.objects.all().count()
+    p = timezone.now().date()
+    a = appointments.objects.filter(appointment_data = p)
 
-    return render(request,'accounts/admin_dashboard.html',{'p3':p3,'d3':d3})
+
+    
+
+    return render(request,'accounts/admin_dashboard.html',{'p3':p3,'d3':d3,'a':a})
 def p(request):
     p2 = patient.objects.all()
     p3 = patient.objects.all().count()
