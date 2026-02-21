@@ -3,6 +3,7 @@ from django.shortcuts import*
 from accounts.models import*
 from django.conf import settings
 from django.core.mail import send_mail
+from django.utils import timezone
 
 def pre_doctor(request):
     doctor_id = request.session.get('doctor_id')
@@ -59,11 +60,16 @@ def doctor_register(request):
 def doctor_dashboard(request):
     d = request.session.get('doctor_id')
     db = doctor.objects.get(id = d)
-    a2 = appointments.objects.filter(doctor = db.doctor_name)
+    k = timezone.now().date()
+
+    a2 = appointments.objects.filter(doctor = db.doctor_name,appointment_data = k)
+    a3 = appointments.objects.filter(doctor = db.doctor_name,appointment_data = k).count()
+
     a = appointments.objects.filter(
         doctor = db.doctor_name
+        
         ).count()
-    return render(request,'doctors/doctor_dashboard.html',{'c':a , 'c2':a2})
+    return render(request,'doctors/doctor_dashboard.html',{'c':a , 'c2':a2,'db':db , 'c3':a3})
 
 def my_appointment(request):
     d = request.session.get('doctor_id')

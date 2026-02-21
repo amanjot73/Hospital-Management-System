@@ -9,8 +9,8 @@ from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import inch
 from datetime import datetime
-from accounts.models import prescription   # change if model name different
-
+from accounts.models import*   # change if model name different
+# from django.utils import timezone
 
 def download_prescription(request, id):
     # Fetch one row from DB
@@ -119,9 +119,13 @@ def base_patient(request):
     appointment_count = appointments.objects.filter(
         patient_name=m.patient_name
     ).count()
+    pt = m.patient_name
+    p = datetime.today().date()
+    k = appointments.objects.filter(appointment_data = p , patient_name = pt).count()
     return render(request,'patients/base_patient.html',{
         'm':m,
-        'count':appointment_count})
+        'count':appointment_count,
+        'qw':k})
 
 
 # =======================================================================================
