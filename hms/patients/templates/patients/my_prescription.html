@@ -167,6 +167,7 @@
                 <tr>
                     <th>Patient</th>
                     <th>Prescription</th>
+                    <th>Download</th>
                     <!-- <th>Email</th> -->
                     <!-- <th>Status</th> -->
                 </tr>
@@ -176,6 +177,11 @@
                     <td>{{ i.patient_name }}</td>
                     <!-- <td>{{ i.appoin }}</td> -->
                     <td>{{ i.medicines }}</td>
+                    <td>
+                        <a href="{% url 'download_prescription' i.id %}" class="download-btn">
+    📥 Download
+</a>
+    </td>
                     <!-- <td>{{ i.patient_email }}</td> -->
                     
                 </tr>

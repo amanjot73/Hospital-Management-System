@@ -3,6 +3,47 @@ from accounts.models import*
 from django.conf import settings
 from django.core.mail import send_mail
 from .models import PrescriptionOrder
+from django.http import HttpResponse
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.units import inch
+from datetime import datetime
+from accounts.models import prescription   # change if model name different
+
+
+def download_prescription(request, id):
+    # Fetch one row from DB
+    pres = prescription.objects.get(id=id)
+
+    # Create HTTP response as PDF
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="prescription_{id}.pdf"'
+
+    # Create PDF document
+    doc = SimpleDocTemplate(response, pagesize=A4)
+    elements = []
+
+    styles = getSampleStyleSheet()
+
+    # Add content from that specific row
+    elements.append(Paragraph("Hospital Management System", styles["Heading1"]))
+    elements.append(Spacer(1, 0.5 * inch))
+
+    elements.append(Paragraph(f"Date: {datetime.now().strftime('%d-%m-%Y')}", styles["Normal"]))
+    elements.append(Spacer(1, 0.3 * inch))
+
+    elements.append(Paragraph(f"Patient Name: {pres.patient_name}", styles["Normal"]))
+    elements.append(Spacer(1, 0.3 * inch))
+
+    elements.append(Paragraph("Prescription:", styles["Heading2"]))
+    elements.append(Spacer(1, 0.2 * inch))
+
+    elements.append(Paragraph(pres.medicines, styles["Normal"]))
+
+    doc.build(elements)
+
+    return response
 
 
 def patient_login(request):
