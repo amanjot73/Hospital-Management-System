@@ -2,13 +2,20 @@ from django.shortcuts import*
 from accounts.models import*
 from django.conf import settings
 from django.core.mail import send_mail
+from django.utils import timezone
 # Create your views here.
+
+
 def reception_dashboard(request):
     p = patient.objects.count()
     d = doctor.objects.count()
+    today = timezone.now().date()
+    a = appointments.objects.filter(appointment_data  = today).count()
     return render(request,'Reception/reception_dashboard.html',
                   {'pcount':p ,
-                   'dcount':d})
+                   'dcount':d,
+                   'a':a},
+                   )
     # return render(request, "Reception/reception_dashboard.html")
 def pre_receptionist(request):
     receptionist_id = request.session.get('receptionist_id')
@@ -64,3 +71,11 @@ def receptionist_register(request):
         return redirect('pre_receptionist')
 
     return render(request, 'Reception/register_receptionist.html')
+
+
+def all_patient(request):
+    k = patient.objects.all()
+    return render(request,'Reception/all_patients.html',{'q':k})
+def all_doctor(request):
+    k = doctor.objects.all()
+    return render(request,'Reception/all_doctors.html',{'q':k})

@@ -101,7 +101,7 @@
 
         <div class="stat-card">
             Today's Appointments
-            <div class="stat-number">{{ acount|default:"NOT RECEIVED"}}</div>
+            <div class="stat-number">{{ a|default:"NO Appointments Yet"}}</div>
         </div>
 
         <div class="stat-card">
@@ -114,10 +114,10 @@
     <div class="actions">
         <button class="action-btn" onclick="window.location.href='{% url 'register_patient' %}'">Register Patient</button>
         <button class="action-btn" onclick="window.location.href='{% url 'book_appointment' %}'">Book Appointment</button>
-        <button class="action-btn" >View Appointments</button>
-        <button class="action-btn">Generate Bill</button>
-        <button class="action-btn">View Doctors</button>
-        <button class="action-btn" onclick="window.location.href='{% url 'login_receptionist' %}'">Logout</button>
+        <button class="action-btn" onclick="window.location.href='{% url 'all_patient'%}'">View Patient</button>
+        <button class="action-btn" onclick="window.location.href='{% url 'register_doctor' %}'">Register Doctor</button>
+        <button class="action-btn " onclick="window.location.href='{% url 'all_doctor' %}'">View Doctors</button>
+        <button class="action-btn" onclick="window.location.href='{% url 'home' %}'">Logout</button>
     </div>
 
 </div>
