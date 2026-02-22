@@ -1,44 +1,44 @@
 # 🏥 Hospital Management System (HMS)
 
-A full-stack **Django-based Hospital Management System** built to streamline hospital workflows including patient management, appointments, prescriptions, billing, and administrative control.
+A full-stack Django-based Hospital Management System built to streamline hospital workflows including patient management, appointments, prescriptions, billing, pharmacy, and administrative control.
 
-This project demonstrates modular backend architecture, relational database handling, and real-world workflow implementation.
+This project demonstrates modular backend architecture, relational database handling, role-based access control, and real-world workflow implementation.
 
 ---
 
 ## 🚀 Features
 
 ### 👤 Patient Module
-
-- Patient registration & login
-- Book appointments
-- View and download prescriptions
-- Access medical history
+- Patient registration & login  
+- Book / cancel appointments  
+- View and download prescriptions  
+- Access medical history  
 
 ### 👨‍⚕️ Doctor Module
-
-- View scheduled appointments
-- Add and manage prescriptions
-- Track patient treatment records
+- View scheduled appointments  
+- Add and manage prescriptions  
+- Track patient treatment records  
 
 ### 🏢 Reception Module
-
-- Monitor total patients and doctors
-- View today's appointments
-- Manage booking flow
+- Monitor total patients and doctors  
+- View today's appointments  
+- Manage booking flow  
 
 ### 💰 Billing & Payments
+- Generate bills automatically  
+- Track payment status  
+- Maintain transaction records  
 
-- Generate bills
-- Track payment status
-- Maintain transaction records
+### 💊 Pharmacy Module
+- Medicine stock management  
+- Prescription validation  
+- Sales tracking  
 
 ### 📊 Admin Dashboard
-
-- Total patients count
-- Total doctors count
-- Total appointments count
-- System overview monitoring
+- Role-based access control  
+- System monitoring  
+- Reports overview  
+- User management  
 
 ---
 
@@ -55,22 +55,46 @@ This project demonstrates modular backend architecture, relational database hand
 ## 🏗️ Project Architecture
 
 ### Modular Django Apps
-
 - `accounts`
 - `patients`
 - `doctors`
 - `appointments`
 - `billing`
 - `Reception`
+- `pharmacy`
 
 ### Key Backend Concepts Implemented
-
-- Model relationships (ForeignKey, One-to-Many)
+- Relational database modeling (ForeignKey, One-to-Many)
+- Full CRUD operations
 - Date-based filtering using Django timezone
 - Role-based dashboard separation
 - File handling (prescription downloads)
-- Clean QuerySet filtering
 - Structured URL routing
+- Session management and authentication
+- QuerySet filtering and validation
+
+---
+
+## 📚 What I Learned
+
+- Designing and managing relational databases  
+- Storing and retrieving structured data efficiently  
+- Implementing complete CRUD functionality  
+- Managing sessions and user authentication  
+- Handling role-based permissions  
+- Building modular backend architecture  
+- Debugging real-world workflow issues  
+
+---
+
+## 🔮 Future Enhancements
+
+- Mobile application support  
+- SMS / Email notifications  
+- Online consultation (video integration)  
+- AI-based health analytics  
+- Insurance integration  
+- Production deployment with MySQL/PostgreSQL  
 
 ---
 
@@ -85,6 +109,7 @@ hms/
 ├── appointments/
 ├── billing/
 ├── Reception/
+├── pharmacy/
 │
 ├── templates/
 ├── static/
@@ -92,34 +117,31 @@ hms/
 │
 └── manage.py
 ```
-⚙️ Installation
-```bash
-# Clone repository
-git clone <your-repository-url>
 
-# Navigate into project folder
+---
+
+## ⚙️ Installation
+
+```bash
+git clone <your-repository-url>
 cd hms
 
-# Create virtual environment
 python -m venv venv
-
-# Activate virtual environment (Windows)
 venv\Scripts\activate
 
-# Install dependencies
 pip install -r requirements.txt
 
-# Apply migrations
 python manage.py migrate
-
-# Run development server
 python manage.py runserver
 ```
+
+---
+
 ## 👨‍💻 Author
 
-Amanjot Singh
-B.Tech CSE | Backend Developer
-Passionate about building scalable backend systems and solving real-world logic problems.
-## Show some love
-⭐ If you found this project useful, consider giving it a star!
+Amanjot Singh  
+B.Tech CSE | Backend Developer  
 
+## ❤️ Show some love
+
+⭐ If you found this project useful, consider giving it a star.
